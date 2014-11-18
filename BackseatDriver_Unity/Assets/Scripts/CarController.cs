@@ -8,8 +8,18 @@ public class CarController : MonoBehaviour {
 	public float turnSpeed = 30;
 	public float speed = 160; 
 	public float antiSlip = 100.0f;
+	
+	Transform destination;
+	
+	Pathfinder pathfinder; 
+	
 	void Start () {
 		Debug.Log (transform.forward);
+		
+		GameObject pathfinderGameobject = GameObject.Find ("PathfindingManager");
+		pathfinder = pathfinderGameobject.GetComponent<Pathfinder>();
+		
+		GetNewDestination();
 	}
 	
 	void Update () {
@@ -58,4 +68,14 @@ public class CarController : MonoBehaviour {
 		transform.RotateAround (transform.position, Vector3.up, steer * Time.fixedDeltaTime * turnSpeed);
 	}
 
+
+	void GetNewDestination ()
+	{
+		destination = pathfinder.GetRandomDestination();
+		
+		Debug.Log (destination);
+		Debug.Log (destination.position);
+		Debug.Log (destination.localPosition);
+	}
+	
 }
