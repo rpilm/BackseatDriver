@@ -5,7 +5,7 @@ using Pathfinding;
 
 namespace Pathfinding {
 
-	public class APath : Path {
+	public class ABPath : Path {
 
 		public bool recalcStartEndCosts = true;
 		
