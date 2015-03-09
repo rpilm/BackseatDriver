@@ -7,19 +7,19 @@ namespace Pathfinding {
 	
 	public abstract class Path {
 		
-		public PathFinder pathFinder;
+		//public PathFinder pathFinder;
 		
 		
-		private GraphNode[] aPath;
+		//private GraphNode[] aPath;
 		private Vector3[] aVectorPath;
 		
-		public List<GraphNode> path;
+		//public List<GraphNode> path;
 		
 		public List<Vector3> vectorPath;
 		
 		public float maxFrameTime;
 		
-		protected PathNode current;
+		//protected PathNode current;
 		
 		public float duration;			
 		public int searchIterations = 0;
@@ -36,3 +36,4 @@ namespace Pathfinding {
 		}
 		
 	}
+}

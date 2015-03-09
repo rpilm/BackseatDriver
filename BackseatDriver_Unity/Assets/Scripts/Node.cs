@@ -8,22 +8,24 @@
 // </auto-generated>
 //
 //------------------------------------------------------------------------------
+using UnityEngine;
+using System.Collections;
 using System;
 namespace AssemblyCSharp
 {
 
-	public class Node : MonoBehavior
+	public class Node// : MonoBehavior
 		{
 
 		Node[] adjacents = new Node[4];
-		Vector3 nodePosition = gameObject.transform.position;
+		//Vector3 nodePosition = gameObject.transform.position;
 		float distance;
 
 				
 				public Node (Transform destination)
 				{
 				
-				distance = Vector3.Distance (nodePosition, destination.position);
+				//distance = Vector3.Distance (nodePosition, destination.position);
 				
 				
 
