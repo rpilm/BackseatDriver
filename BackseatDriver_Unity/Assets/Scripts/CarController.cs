@@ -65,7 +65,8 @@ public class CarController : MonoBehaviour {
 
 	void ApplySteering ()
 	{
-		transform.RotateAround (transform.position, Vector3.up, steer * Time.fixedDeltaTime * turnSpeed);
+		if(rigidbody.velocity.magnitude > 0)
+			transform.RotateAround (transform.position, Vector3.up, steer * Time.fixedDeltaTime * turnSpeed);
 	}
 
 

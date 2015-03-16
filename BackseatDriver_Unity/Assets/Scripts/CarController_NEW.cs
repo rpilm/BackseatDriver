@@ -2,75 +2,44 @@
 using System.Collections;
 
 public class CarController_NEW : MonoBehaviour {
-	
-	float throttle=0f;
-	public float turnSpeed = 30;
-	public float speed = 160; 
-	public float antiSlip = 100.0f;
-	public GameObject wheels;
-	
-	void Start () {
-		Debug.Log (transform.forward);
+	float translation;
+	float rotation;
+	float acceleration;
+
+	public float speed = 0F;
+	public float rotationSpeed = 100.0F;
+
+	void Start()	{
+		acceleration = 0;
 	}
-	
+
+	// Update is called once per frame
 	void Update () {
-		GetInput ();
+		//W key essentially is treated as gas pedal
+		if (Input.GetKey (KeyCode.W))
+			acceleration = 0.0005f;
+		else if (Input.GetKey (KeyCode.S))
+			acceleration = -0.001f;
+		else
+			acceleration = -0.0005f;
+
+		speed += acceleration;
+
+		//Maximum and minimum speeds
+		if (speed < 0)
+			speed = 0;
+		if (speed > 0.3f)
+			speed = 0.3f;
+
+		rotationSpeed = speed * 1000f;
+		if (rotationSpeed > 100f)
+			rotationSpeed = 100;
+
+		translation = Input.GetAxis("Vertical") * speed;
+		rotation = Input.GetAxis("Horizontal") * rotationSpeed;
+		translation *= Time.deltaTime;
+		rotation *= Time.deltaTime;
+		transform.Translate(0, 0, speed);
+		transform.Rotate(0, rotation, 0);
 	}
-	
-	// use this for rigidbody physics updates
-	void FixedUpdate () {
-		
-		ApplyFriction ();
-		ApplyThrottle ();
-		ApplySteering ();
-		
-	}
-	
-	void GetInput() {
-		throttle = Input.GetAxis ("Vertical");
-	}
-	
-	// 
-	void ApplyFriction ()
-	{
-		Vector3 relativeVelocity = transform.InverseTransformDirection(rigidbody.velocity);
-		
-		// apply sideways friction to prevent slipping
-		
-		float sqrVel = relativeVelocity.x * relativeVelocity.x;
-		
-		
-		Vector3 antiSlipVecLocal = sqrVel * Vector3.right * Mathf.Sign (relativeVelocity.x) * antiSlip * -1;
-		
-		Vector3 antiSlipVec = transform.TransformDirection (antiSlipVecLocal);
-		
-		rigidbody.AddForce (antiSlipVec  * Time.fixedDeltaTime);
-	}
-	
-	void ApplyThrottle ()
-	{
-		rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * throttle * speed );
-	}
-	
-	void ApplySteering ()
-	{
-		if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
-			if(rigidbody.velocity.magnitude > 0)	{
-				if (wheels.transform.localRotation.y > -0.3f)	{
-					wheels.transform.RotateAround (wheels.transform.position, Vector3.up, -2);
-				}
-			}
-		}
-		if (Input.GetKey (KeyCode.D) || Input.GetKey (KeyCode.RightArrow)) {
-			if(rigidbody.velocity.magnitude > 0)	{
-				if(wheels.transform.localRotation.y < 0.3f) {
-					wheels.transform.RotateAround (wheels.transform.position, Vector3.up, 2);
-				}
-			}
-		}
-		
-		
-		transform.RotateAround (transform.position, Vector3.up, wheels.transform.localRotation.y * Time.fixedDeltaTime * turnSpeed);
-	}
-	
 }
