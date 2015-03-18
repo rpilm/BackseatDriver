@@ -4,7 +4,7 @@ using System.Collections;
 public class CarController_NEW : MonoBehaviour {
 	float translation;
 	float rotation;
-	float acceleration;
+	public float acceleration;
 
 	public float speed = 0F;
 	public float rotationSpeed = 100.0F;
@@ -19,9 +19,9 @@ public class CarController_NEW : MonoBehaviour {
 		if (Input.GetKey (KeyCode.W))
 			acceleration = 0.0005f;
 		else if (Input.GetKey (KeyCode.S))
-			acceleration = -0.001f;
+			acceleration = -0.002f;
 		else
-			acceleration = -0.0005f;
+			acceleration = -0.001f;
 
 		speed += acceleration;
 
@@ -31,9 +31,9 @@ public class CarController_NEW : MonoBehaviour {
 		if (speed > 0.3f)
 			speed = 0.3f;
 
-		rotationSpeed = speed * 1000f;
-		if (rotationSpeed > 100f)
-			rotationSpeed = 100;
+		rotationSpeed = speed * 400f;
+		if (rotationSpeed > 75f)
+			rotationSpeed = 75f;
 
 		translation = Input.GetAxis("Vertical") * speed;
 		rotation = Input.GetAxis("Horizontal") * rotationSpeed;
