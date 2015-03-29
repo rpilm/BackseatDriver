@@ -5,41 +5,62 @@ public class CarController_NEW : MonoBehaviour {
 	float translation;
 	float rotation;
 	public float acceleration;
-
-	public float speed = 0F;
-	public float rotationSpeed = 100.0F;
+	public Rigidbody rb;
+	float turn;
+	//******NOTE*********
+	//"speed" variable is not used in movement, just used for rotationSpeed calculation
+	public float speed;
+	public float rotationSpeed = 5.0F;
 
 	void Start()	{
+		rb = GetComponent<Rigidbody> ();
 		acceleration = 0;
+		speed = 0;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		//W key essentially is treated as gas pedal
 		if (Input.GetKey (KeyCode.W))
-			acceleration = 0.0005f;
+			acceleration = 1.25f;
+		//S key is the brakes
 		else if (Input.GetKey (KeyCode.S))
-			acceleration = -0.002f;
+			acceleration = -1.5f;
 		else
-			acceleration = -0.001f;
+			acceleration = -0.65f;
 
-		speed += acceleration;
+		if (Input.GetKey (KeyCode.A) == false && Input.GetKey (KeyCode.D) == false)
+			rigidbody.angularDrag = 5.5f;
+		else
+			rigidbody.angularDrag = 3.5f;
 
-		//Maximum and minimum speeds
+		turn = Input.GetAxis ("Horizontal");
+
+
+		speed += acceleration/2;
+
+		//Maximum and minimum "speeds"
 		if (speed < 0)
 			speed = 0;
-		if (speed > 0.3f)
-			speed = 0.3f;
+		if (speed > 100)
+			speed = 100;
 
-		rotationSpeed = speed * 400f;
-		if (rotationSpeed > 75f)
-			rotationSpeed = 75f;
+		if (rigidbody.velocity.magnitude < 0.01 && Input.GetKey(KeyCode.W) == false) {
+			acceleration = 0;
+			rigidbody.velocity = Vector3.zero;
+		}
 
-		translation = Input.GetAxis("Vertical") * speed;
-		rotation = Input.GetAxis("Horizontal") * rotationSpeed;
-		translation *= Time.deltaTime;
-		rotation *= Time.deltaTime;
-		transform.Translate(0, 0, speed);
-		transform.Rotate(0, rotation, 0);
+		//rotationSpeed = speed * 2;
+		//if (rotationSpeed > 20f)
+		//	rotationSpeed = 20f;
+
+		//rotation = Input.GetAxis("Horizontal") * rotationSpeed;
+		//rotation *= Time.deltaTime;
+		//transform.Rotate(0, rotation, 0);
+
+
+		
+		rb.AddForce (transform.forward * acceleration, ForceMode.Acceleration);
+		rb.AddTorque (transform.up * rotationSpeed * turn);
 	}
 }
