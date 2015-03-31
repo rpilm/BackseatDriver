@@ -49,16 +49,6 @@ public class CarController_NEW : MonoBehaviour {
 			acceleration = 0;
 			rigidbody.velocity = Vector3.zero;
 		}
-
-		//rotationSpeed = speed * 2;
-		//if (rotationSpeed > 20f)
-		//	rotationSpeed = 20f;
-
-		//rotation = Input.GetAxis("Horizontal") * rotationSpeed;
-		//rotation *= Time.deltaTime;
-		//transform.Rotate(0, rotation, 0);
-
-
 		
 		rb.AddForce (transform.forward * acceleration, ForceMode.Acceleration);
 		rb.AddTorque (transform.up * rotationSpeed * turn);
