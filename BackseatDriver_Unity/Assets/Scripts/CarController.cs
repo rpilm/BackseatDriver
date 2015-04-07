@@ -14,7 +14,7 @@ public class CarController : MonoBehaviour {
 	Pathfinder pathfinder; 
 	
 	void Start () {
-		Debug.Log (transform.forward);
+		//Debug.Log (transform.forward);
 		
 		GameObject pathfinderGameobject = GameObject.Find ("PathfindingManager");
 		pathfinder = pathfinderGameobject.GetComponent<Pathfinder>();
@@ -60,7 +60,16 @@ public class CarController : MonoBehaviour {
 
 	void ApplyThrottle ()
 	{
-		rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * throttle * speed );
+		if (Input.GetKey (KeyCode.W))
+			rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * throttle * speed);
+		else if (Input.GetKey (KeyCode.S))
+			rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * throttle * speed * 1.5f);
+		else {
+			if(rigidbody.velocity.magnitude > 0.05) {
+				rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * speed * -0.9f);
+				Debug.Log(rigidbody.velocity.magnitude);
+			}
+		}
 	}
 
 	void ApplySteering ()
