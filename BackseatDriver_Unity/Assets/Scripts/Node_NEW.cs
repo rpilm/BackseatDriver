@@ -2,17 +2,16 @@
 using System.Collections;
 
 public class Node_NEW : MonoBehaviour {
-	public int num_neighbors;
-	public GameObject neighbors;
-
+	public GameObject[] neighbors;
+	Pathfinder_NEW player;
+	
 	void OnTriggerEnter(Collider c)	{
 		if (c.gameObject.name == "Player") {
-			return;
-
+			player.current_node = this.gameObject;
+			player.next_node = getNextNode();
 		}
-		return;
 	}
-
+	
 	void OnTriggerExit(Collider c)	{
 		if (c.gameObject.name == "Player") {
 			//****************************************************
@@ -26,11 +25,29 @@ public class Node_NEW : MonoBehaviour {
 				Debug.Log ("Learn how to drive");
 			}
 		}
-
 	}
-	
+
+	//"finds" the next node to go for based off which neighbor is closest to the final destination (aka target)
+	public GameObject getNextNode()	{
+		float closest_dist = 100000f;
+		//just giving the first neighbor at first for the sake of initialization
+		GameObject pref_node = neighbors [0];
+		for (int n = 0; n < neighbors.Length; n++) {
+			float current_dist = Vector3.Distance(player.target.transform.position, neighbors[n].transform.position);
+			if(current_dist < closest_dist)	{
+				pref_node = neighbors[n];
+				closest_dist = current_dist;
+			}
+		}
+		return pref_node;
+	}
+
+	void Start()	{
+		player = GameObject.Find ("Player").GetComponent<Pathfinder_NEW> ();
+	}
+
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 }

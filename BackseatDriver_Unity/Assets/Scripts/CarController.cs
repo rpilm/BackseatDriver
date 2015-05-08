@@ -67,7 +67,7 @@ public class CarController : MonoBehaviour {
 		else {
 			if(rigidbody.velocity.magnitude > 0.05) {
 				rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * speed * -0.9f);
-				Debug.Log(rigidbody.velocity.magnitude);
+				//Debug.Log(rigidbody.velocity.magnitude);
 			}
 		}
 	}
