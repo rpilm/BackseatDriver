@@ -9,11 +9,14 @@ public class Node_NEW : MonoBehaviour {
 		if (c.gameObject.name == "Player") {
 			player.current_node = this.gameObject;
 			player.next_node = getNextNode();
-			player.tellNextDirection();
-			//**************************************************************
-			//TELL PLAYER WHICH DIRECTION TO GO HERE (left, right, straight)
-			//**************************************************************
 
+			//no need to tell the player which way to turn on a corner since it's effectively one-way
+			if(this.gameObject.name != "corner")	{
+				player.tellNextDirection();
+				//**************************************************************
+				//TELL PLAYER WHICH DIRECTION TO GO HERE (left, right, straight)
+				//**************************************************************
+			}
 		}
 	}
 
@@ -36,7 +39,7 @@ public class Node_NEW : MonoBehaviour {
 					Debug.Log ("WOO YOU MADE THE CORRECT TURN!");
 				}
 				else {
-					Debug.Log ("Learn how to drive");
+					Debug.Log ("****WRONG TURN****");
 				}
 			}
 		}
@@ -47,8 +50,6 @@ public class Node_NEW : MonoBehaviour {
 		float closest_dist = 100000f;
 		//just giving the first neighbor at first for the sake of initialization
 		GameObject pref_node = neighbors [0];
-
-		int player_dir = player.getDirection ();
 
 		for (int n = 0; n < neighbors.Length; n++) {
 			//the next node should NOT be the node that the player just came from (in case of player trying to U-turn or anything else)

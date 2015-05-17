@@ -11,13 +11,13 @@ public class CarController : MonoBehaviour {
 	
 	Transform destination;
 	
-	Pathfinder pathfinder; 
+	//Pathfinder pathfinder; 
 	
 	void Start () {
 		//Debug.Log (transform.forward);
 		
-		GameObject pathfinderGameobject = GameObject.Find ("PathfindingManager");
-		pathfinder = pathfinderGameobject.GetComponent<Pathfinder>();
+		//GameObject pathfinderGameobject = GameObject.Find ("PathfindingManager");
+		//pathfinder = pathfinderGameobject.GetComponent<Pathfinder>();
 		
 		GetNewDestination();
 	}
@@ -81,7 +81,7 @@ public class CarController : MonoBehaviour {
 
 	void GetNewDestination ()
 	{
-		destination = pathfinder.GetRandomDestination();
+		//destination = pathfinder.GetRandomDestination();
 		
 		Debug.Log (destination);
 		Debug.Log (destination.position);
