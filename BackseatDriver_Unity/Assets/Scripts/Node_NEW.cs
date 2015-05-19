@@ -13,9 +13,6 @@ public class Node_NEW : MonoBehaviour {
 			//no need to tell the player which way to turn on a corner since it's effectively one-way
 			if(this.gameObject.name != "corner")	{
 				player.tellNextDirection();
-				//**************************************************************
-				//TELL PLAYER WHICH DIRECTION TO GO HERE (left, right, straight)
-				//**************************************************************
 			}
 		}
 	}
@@ -42,6 +39,7 @@ public class Node_NEW : MonoBehaviour {
 					Debug.Log ("****WRONG TURN****");
 				}
 			}
+
 		}
 	}
 

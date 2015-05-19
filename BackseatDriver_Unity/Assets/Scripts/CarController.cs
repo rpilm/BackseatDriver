@@ -66,8 +66,7 @@ public class CarController : MonoBehaviour {
 			rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * throttle * speed * 1.5f);
 		else {
 			if(rigidbody.velocity.magnitude > 0.05) {
-				rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * speed * -0.9f);
-				//Debug.Log(rigidbody.velocity.magnitude);
+				rigidbody.AddForce (rigidbody.velocity * Time.fixedDeltaTime * speed * -0.5f);
 			}
 		}
 	}
@@ -81,11 +80,12 @@ public class CarController : MonoBehaviour {
 
 	void GetNewDestination ()
 	{
-		//destination = pathfinder.GetRandomDestination();
-		
-		Debug.Log (destination);
-		Debug.Log (destination.position);
-		Debug.Log (destination.localPosition);
+//		//destination = pathfinder.GetRandomDestination();
+//		
+//		Debug.Log (destination);
+//		Debug.Log (destination.position);
+//		Debug.Log (destination.localPosition);
+		return;
 	}
 	
 }

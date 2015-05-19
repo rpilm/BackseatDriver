@@ -56,7 +56,6 @@ public class Pathfinder_NEW : MonoBehaviour {
 		else if (dir == 2) {
 			if(next_node.transform.position.z - current_node.transform.position.z < -tolerance)	{
 				//tell the player to go straight
-				Debug.Log (next_node.transform.position.z - current_node.transform.position.z);
 				Debug.Log("STRAIGHT");
 			}
 			else if(next_node.transform.position.x - current_node.transform.position.x < -tolerance)	{
