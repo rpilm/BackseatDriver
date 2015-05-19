@@ -65,6 +65,7 @@ public class CarController : MonoBehaviour {
 		else if (Input.GetKey (KeyCode.S))
 			rigidbody.AddForce (transform.forward * Time.fixedDeltaTime * throttle * speed * 1.5f);
 		else {
+			//if no acceleration keys are being held down, apply force in the opposite direction of the car's movement to slow it to a stop.
 			if(rigidbody.velocity.magnitude > 0.05) {
 				rigidbody.AddForce (rigidbody.velocity * Time.fixedDeltaTime * speed * -0.5f);
 			}

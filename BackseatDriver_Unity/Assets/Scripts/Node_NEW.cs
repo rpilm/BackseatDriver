@@ -6,6 +6,7 @@ public class Node_NEW : MonoBehaviour {
 	Pathfinder_NEW player;
 	
 	void OnTriggerEnter(Collider c)	{
+		//as the player enters a node, simply update their "current" node to be this one and call the getNextNode() function to assign the next target node.
 		if (c.gameObject.name == "Player") {
 			player.current_node = this.gameObject;
 			player.next_node = getNextNode();
@@ -23,6 +24,8 @@ public class Node_NEW : MonoBehaviour {
 
 
 	void OnTriggerExit(Collider c)	{
+		//as the player exits a node, check that they are going the "right" direction by getting the dot product of their direction and the direction they "should" be going.
+		//for reference, the dot product of two vectors going in the same direction = 1, while in the opposite direction = 0. For this, the dot must be > 0.8
 		if (c.gameObject.name == "Player") {
 			correct_direction = player.next_node.transform.position - player.current_node.transform.position;
 			correct_direction.Normalize();
@@ -51,6 +54,10 @@ public class Node_NEW : MonoBehaviour {
 
 		for (int n = 0; n < neighbors.Length; n++) {
 			//the next node should NOT be the node that the player just came from (in case of player trying to U-turn or anything else)
+			//dir = 0 = up (positive on z axis)
+			//dir = 1 = right (positive on x axis)
+			//dir = 2 = down (negative on z axis)
+			//dir = 3 = left (negative on x axis)
 			if(player.dir == 0 && neighbors[n].transform.position.z < this.gameObject.transform.position.z)	{
 				continue;
 			}
@@ -64,6 +71,7 @@ public class Node_NEW : MonoBehaviour {
 				continue;
 			}
 			else {
+				//find the neighbor node that is closest to the "target" (final destination)
 				float current_dist = Vector3.Distance(player.target.transform.position, neighbors[n].transform.position);
 				if(current_dist < closest_dist)	{
 					pref_node = neighbors[n];
