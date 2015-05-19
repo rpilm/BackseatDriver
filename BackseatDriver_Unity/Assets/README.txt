@@ -3,7 +3,18 @@ Karl Olsen
 
 
 
+***********WHAT I DID*****************
+-Re-made roadmap (NewCity.unity scene) and consolidated/renamed street sections for the sake of a much neater project.
+-Implemented Node system for each intersection.
+-Implemented Node-based pathfinding/instruction/reaction "AI".
+-Cleaned up several outstanding car control bugs.
 
+******************GENERAL NOTES************************
+-Due to the street tiles given being very inconsistent in terms of position, the tellNextDirection() function in Pathfinder_NEW.cs
+checks to see if neighbor node positions are outside of a tolerance level to find direction, otherwise it would be preferable to just see
+if "next_node.transform.position.x > current_node.transform.position.x" or vice versa.
+-The neighbors of each node are "hardcoded" in through the inspector so if you make a new map or alter the current one, make sure to change
+the neighbors accordingly. The order does not affect the algorithm.
 
 
 *******INSTRUCTIONS FOR IMPLEMENTING SOUNDS FOR INSTRUCTION/REACTION**********
